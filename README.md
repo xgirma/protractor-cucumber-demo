@@ -1,18 +1,18 @@
 # Protractor and Cucumber Integration Demo
 
-[Protractor](http://www.protractortest.org/#/) is an end-to-end testing framework that interacts with an application using a web browser, in the same way a real user would interact. 
-It can test your application like a real user. 
-[Cucumber](https://cucumber.io/) is a framework for writing high level specifications of an application's functionality using plain text. 
+[Protractor](http://www.protractortest.org/#/) is a testing framework that enables interacting with an application on a web browser, in the same way a real user would interact.
+ 
+[Cucumber](https://cucumber.io/) is a framework for writing high-level specifications of an application's functionality using plain text. 
 It can be written and understood by non-technical people involved in a project. 
-Cucumber’s language, [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin), lets you describe software’s behaviour without detailing how that behaviour is implemented.
+Cucumber’s language, [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin), lets you describe software’s behaviour without detailing implementation details.
 
-This demo shows how these different frameworks can be tied together using the [protractor-cucumber-framework](https://www.npmjs.com/package/protractor-cucumber-framework).
-The protractor-cucumber-framework was originally part of angular/protractor and is now a separate module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
+This demo shows how these frameworks can be tied together using the [protractor-cucumber-framework](https://www.npmjs.com/package/protractor-cucumber-framework).
+The `protractor-cucumber-framework` was originally part of angular/protractor project and is now a separate npm module to decouple [cucumber.js](https://github.com/cucumber/cucumber-js).
 
 ## 0. Setup
 Setup should be simple. If you do not have Nodejs installed in your machine, install it from [here](https://nodejs.org/en/). 
-There is no need to install modules globally for this demo, all modules are accessed from the `/node_modules` folder under your project. 
-The only requirement is to check out the code from GitHub, install required modules and update webdriver. And you can run the test. 
+There is no need to install node modules globally for this demo. All modules configured to be accessed from the `/node_modules` folder under your project-root. 
+The only requirement is to install required modules and update webdriver as shown below. And you can run the test. 
 
 From your project-root directory enter
 
@@ -23,7 +23,7 @@ From your project-root directory enter
 ## 1. Configuration
 The settings for a Protractor test is defined using a configuration file, `config/config.js`. 
 The complete configuration options of Protractor for [AngularJS](https://angularjs.org/) is [here](https://github.com/angular/protractor/blob/fv1.3.0/docs/referenceConf.js) and for [Angular](https://angular.io/) 2 is [here](https://github.com/angular/protractor/blob/master/lib/config.ts).
-Here, we will only focus on three options, that are required for the integration.
+In this demo, we will only focus on three options, that are required for the integration.
  
 #### specs
 The `Specs` option defines *spec patterns* relative to the location of the configuration script. Here, we define .feature files consists of features, for example `/features/home.feature`.
@@ -78,9 +78,9 @@ Feature: Searching flight
     Then I should have search tabs
 ```
 
-Once writing `.feature` is completed, run the test using `npm run test`. And you should get an output that looks like the below
+Once writing `.feature` is completed, run the test using `npm run test`. And you should get an output as shown below
 
-```feature
+````
 1) Scenario: Landing at the Expedia.com home - features/home.feature:6
    Step: Given That I entered Expedia.com - features/home.feature:7
    Message:
@@ -123,15 +123,14 @@ Once writing `.feature` is completed, run the test using `npm run test`. And you
 
 2 scenarios (2 undefined)
 4 steps (4 undefined)
-```
+````
 
 ## 3. Step Definitions
-Step definitions is where Gherkin's documentation turned into an actual automated tests. 
+Step definitions is where Gherkin's *documentation* turned into an actual *automated tests*. 
 Copy the four steps from the above output, and add it in to your step definition spec, `step_defination/home.steps.js`.
-Note that, `4 steps (4 undefined)` in the above output. 
 
 The rest of the modification should be done as any Protractor test would, as shown below. 
-[chaijs](http://chaijs.com/api/assert/) is used for assertion in this example.
+[chaijs](http://chaijs.com/api/assert/) is used for assertion in this demo. You can use any other assertion library of your choice.
 
 ```js
 var chai = require('chai')
@@ -163,9 +162,29 @@ module.exports = function () {
   })
 }
 ```
-Now running the test using `npm run test`, should open Chrome browser load Expedia.com home page and test few things :) You should get 
+Now running the test using `npm run test`, should open Chrome browser load Expedia.com home page and test few things :) At the end of the output you should see this
 
-```feature
+
+```
+[18:04:26] I/launcher - Running 1 instances of WebDriver
+[18:04:26] I/direct - Using ChromeDriver directly...
+Feature: Searching flight
+
+  As a user of Expedia.com
+  I should search for flight from the landing page
+
+  @search
+  Scenario: Landing at the Expedia.com home
+    Given That I entered Expedia.com
+    Then I should should see Expedia.com logo
+
+  @search
+  Scenario: Getting multiple search tabs
+    Given That I am at the home page
+    Then I should have search tabs
+
 2 scenarios (2 passed)
 4 steps (4 passed)
+0m00.005s
+
 ```
