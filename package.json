@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/xgirma/protractor-cucumber-demo#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "standard": "^8.6.0"
+    "chai": "3.5.0",
+    "chai-as-promised": "5.3.0",
+    "standard": "8.6.0"
   },
   "dependencies": {
     "protractor": "^5.1.0",
