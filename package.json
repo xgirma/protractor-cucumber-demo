@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "protractor": "^5.1.0",
-    "protractor-cucumber-framework": "^0.6.0",
+    "protractor-cucumber-framework": "^6.0.0",
     "cucumber": "^0.10.2"
   },
   "standard": {
